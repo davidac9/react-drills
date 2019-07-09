@@ -3,16 +3,28 @@ import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {
+  constructor() {
+    super() 
+    this.state = {
+      input: '',
+      animals: ['weasel','beaver','raccon','prairie dog','squirrel','Robert Downey Jr']
+    }
+  }
+  handleInput(e) {
+    this.setState({
+      input: e.target.value
+    })
+  }
   render() {
+    let displayAnimals = this.state.animals.map((el,i) => {
+      if (el.includes(this.state.input) === true) {
+      return <h2 key={i}>{el}</h2>
+      }
+    })
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input onChange={e => this.handleInput(e)} type="text"/>
+        {displayAnimals}
       </div>
     );
   }
